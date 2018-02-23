@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons right>
+      <button ion-button (click)="viewCtrl.dismiss()">
+        Close
+      </button>
+    </ion-buttons>
+    <ion-title>Connect</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="devices">
+    <div *ngIf="devices.length">
+      <h2>Select device</h2>
+      <ion-list>
+        <button *ngFor="let device of devices" ion-item  detail-push (click)="connect(device)">
+          {{device.name}}<br />
+          <small>{{device.id}}</small>
+        </button>
+      </ion-list>
+    </div>
+    <div *ngIf="!devices.length">
+      <h2>No devices found</h2>
+    </div>
+  </div>
+</ion-content>
