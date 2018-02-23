@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {ModalController, NavController} from 'ionic-angular';
-import {BluetoothSerial} from '@ionic-native/bluetooth-serial';
-import {ConnectPage} from "../connect/connect";
+import { Component } from '@angular/core';
+import { ModalController, NavController, Platform } from 'ionic-angular';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { ConnectPage } from "../connect/connect";
 
 @Component({
   selector: 'page-home',
@@ -9,7 +9,7 @@ import {ConnectPage} from "../connect/connect";
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private bluetooth: BluetoothSerial) {
+  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private bluetooth: BluetoothSerial, private platform: Platform) {
 
   }
 
@@ -28,24 +28,21 @@ export class HomePage {
   }
 
   async showConnect() {
-    if (!await this.bluetooth.isEnabled()) {
+    if (this.platform.is('cordova') && !await this.bluetooth.isEnabled()) {
       console.log('bluetooth is not enabled');
       await this.bluetooth.enable();
     }
-    if (await this.bluetooth.isEnabled()) {
-      let modal = this.modalCtrl.create(ConnectPage);
-      modal.present();
-      modal.onDidDismiss(data => {
-        if (data && data.id) {
-          console.log('connecting to ' + data.id);
-          this.bluetooth.connect(data.id).toPromise().then(data => {
-            console.log('connected', data);
-          }).catch(e => {
-            console.log('connect error', e);
-          });
-        }
-      });
-    }
+    let modal = this.modalCtrl.create(ConnectPage);
+    modal.present();
+    modal.onDidDismiss(data => {
+      if (data && data.id) {
+        console.log('connecting to ' + data.id);
+        this.bluetooth.connect(data.id).toPromise().then(data => {
+          console.log('connected', data);
+        }).catch(e => {
+          console.log('connect error', e);
+        });
+      }
+    });
   }
-
 }
