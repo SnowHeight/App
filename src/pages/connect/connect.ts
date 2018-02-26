@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, Platform, ViewController} from 'ionic-angular';
+import {AlertController, LoadingController, NavController, Platform} from 'ionic-angular';
 import {BluetoothSerial} from '@ionic-native/bluetooth-serial';
+import {ConfigurePage} from "../configure/configure";
 
 @Component({
   selector: 'page-home',
@@ -8,28 +9,54 @@ import {BluetoothSerial} from '@ionic-native/bluetooth-serial';
 })
 export class ConnectPage {
 
-  constructor(public viewCtrl: ViewController, public navCtrl: NavController, private bluetooth: BluetoothSerial, private platform: Platform, private loadingCtrl: LoadingController) {
+  constructor(private alertCtrl: AlertController
+    , public navCtrl: NavController
+    , private bluetooth: BluetoothSerial
+    , private platform: Platform
+    , private loadingCtrl: LoadingController) {
 
   }
 
   devices: any[] = [];
 
-  connect(device) {
-    this.viewCtrl.dismiss({id: device.id})
+  async connect(device) {
+    console.log('connecting to ' + device.id);
+    let loading = this.loadingCtrl.create({
+      content: 'Connecting'
+    });
+    await loading.present();
+    this.bluetooth.connect(device.id).subscribe(async status => {
+      console.log('connected', status);
+      await loading.dismiss();
+      this.navCtrl.setRoot(ConfigurePage, {
+        name: device.name
+      });
+    }, async error => {
+      console.error('failed to connect', error);
+      await loading.dismiss();
+      await this.alertCtrl.create({
+        title: 'Failed to connect',
+        buttons: ['Oh no']
+      }).present();
+    });
+  }
+
+  async loadDevices() {
+    let loading = this.loadingCtrl.create({
+      content: 'Discovering available devices...'
+    });
+    await loading.present();
+    this.bluetooth.list().then((device) => {
+      this.devices = device;
+      loading.dismiss();
+    }).catch(e => {
+      //TODO display error message
+    });
   }
 
   ngOnInit() {
     if (this.platform.is('cordova')) {
-      let loading = this.loadingCtrl.create({
-        content: 'Discovering available devices...'
-      });
-      loading.present();
-      this.bluetooth.list().then((data) => {
-        this.devices = data;
-        loading.dismiss();
-      }).catch(e => {
-        //TODO display error message
-      });
+      this.loadDevices();
     } else {
       //if we are debugging/testing the app in the browser we want at least one device for testing
       this.devices = [{

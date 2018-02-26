@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Snow Height</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h2>Connected to {{name}}</h2>
+  <button ion-button color="danger" full (click)="disconnect()"><ion-icon icon="close"></ion-icon> Disconnect</button>
+
+  <hr />
+  <div *ngIf="config">
+    <h3>Settings</h3>
+    <ion-list *ngFor="let key of _.keys(config)">
+        <ion-item>
+          <ion-label color="primary">{{key}}</ion-label>
+          <ion-input placeholder="{{key}}" [(ngModel)]="config[key]"></ion-input>
+        </ion-item>
+    </ion-list>
+    <button ion-button full color="secondary">Save settings</button>
+
+    <h3>Data</h3>
+    <button ion-button full color="primary">Load general data</button>
+    <button ion-button full color="primary">Load laser data</button>
+    <button ion-button full color="primary">Load error logs</button>
+  </div>
+</ion-content>

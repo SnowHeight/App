@@ -1,15 +1,12 @@
 <ion-header>
   <ion-navbar>
-    <ion-buttons right>
-      <button ion-button (click)="viewCtrl.dismiss()">
-        Close
-      </button>
-    </ion-buttons>
-    <ion-title>Connect</ion-title>
+    <ion-title>SnowHeight</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <button ion-button full color="primary" (click)="loadDevices()">Refresh devices</button>
+  <ion-label>Paired devices:</ion-label>
   <div *ngIf="devices">
     <div *ngIf="devices.length">
       <h2>Select device</h2>
