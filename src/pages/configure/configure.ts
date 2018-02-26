@@ -101,19 +101,17 @@ export class ConfigurePage {
   }
 
   async disconnect() {
+    clearInterval(this.interval);
     if (this.platform.is('cordova')) {
       try {
         await this.bluetooth.disconnect();
-        await this.alertCtrl.create({
-          title: 'Disconnected',
-          buttons: ['Ok']
-        }).present();
         this.navCtrl.setRoot(ConnectPage);
       } catch (e) {
         await this.alertCtrl.create({
           title: 'Failed to disconnect',
           buttons: ['Oh no']
         }).present();
+        this.navCtrl.setRoot(ConnectPage);
       }
     }
   }
