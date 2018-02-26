@@ -56,6 +56,22 @@ export class ConfigurePage {
     }
   }
 
+  async saveConfig() {
+    try {
+      let configString = this.bridge.configObjectToString(this.config);
+      console.log(configString);
+      await this.bluetooth.write(this.bridge.textToUint8Array(configString));
+      await this.alertCtrl.create({
+        title: 'Saved config',
+        buttons: ['Ok']
+      }).present();
+    } catch(e) {
+      await this.alertCtrl.create({
+        title: 'Failed to save config'
+      }).present();
+    }
+  }
+
   async ionViewDidLoad() {
     this.name = this.navParams.data.name;
     await this.readConfig();

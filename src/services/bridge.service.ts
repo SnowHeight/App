@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import * as _ from "lodash";
 
 @Injectable()
 export class BridgeService {
@@ -10,6 +11,19 @@ export class BridgeService {
       obj[match[1]] = match[2];
     }
     return obj;
+  }
+
+  configObjectToString(obj) {
+    let data = null;
+    _.each(obj, (value, key) => {
+      if(data === null) {
+        data = `${key}=${value}`;
+      } else {
+
+        data = `${data};${key}=${value}`;
+      }
+    });
+    return `[savesettings]${data}[/savesettings]`;
   }
 
   textToUint8Array(text) {
