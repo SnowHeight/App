@@ -20,7 +20,7 @@ export class HomePage {
   }
 
   send() {
-    this.bluetooth.write(this.text).then(data => {
+    this.bluetooth.write(this.text + "\r\n").then(data => {
       console.log('sent', data);
     }).catch(e => {
       console.log('send error', e);
