@@ -20,25 +20,30 @@ export class ConnectPage {
   devices: any[] = [];
 
   async connect(device) {
-    console.log('connecting to ' + device.id);
-    let loading = this.loadingCtrl.create({
-      content: 'Connecting'
-    });
-    await loading.present();
-    this.bluetooth.connect(device.id).subscribe(async status => {
-      console.log('connected', status);
-      await loading.dismiss();
+    if(this.platform.is('cordova')) {
+      let loading = this.loadingCtrl.create({
+        content: 'Connecting'
+      });
+      await loading.present();
+      this.bluetooth.connect(device.id).subscribe(async status => {
+        console.log('connected', status);
+        await loading.dismiss();
+        this.navCtrl.setRoot(ConfigurePage, {
+          name: device.name
+        });
+      }, async error => {
+        console.error('failed to connect', error);
+        await loading.dismiss();
+        await this.alertCtrl.create({
+          title: 'Failed to connect',
+          buttons: ['Oh no']
+        }).present();
+      });
+    } else {
       this.navCtrl.setRoot(ConfigurePage, {
         name: device.name
       });
-    }, async error => {
-      console.error('failed to connect', error);
-      await loading.dismiss();
-      await this.alertCtrl.create({
-        title: 'Failed to connect',
-        buttons: ['Oh no']
-      }).present();
-    });
+    }
   }
 
   async loadDevices() {
@@ -54,13 +59,29 @@ export class ConnectPage {
     });
   }
 
+  async openSettings() {
+    await this.bluetooth.showBluetoothSettings();
+  }
+
   ngOnInit() {
     if (this.platform.is('cordova')) {
       this.loadDevices();
     } else {
       //if we are debugging/testing the app in the browser we want at least one device for testing
       this.devices = [{
-        name: 'test',
+        name: 'Snow Height - Pitztal 2',
+        id: '34:56:78:9A:BC:DE'
+      }, {
+        name: 'Snow Height - Pitztal 5',
+        id: '12:34:56:78:9A:BC'
+      }, {
+        name: 'Snow Height - Stubai 3',
+        id: '56:78:9A:BC:12:34'
+      }, {
+        name: 'Snow Height - Hintertux 1',
+        id: 'BC:56:78:9A:12:34'
+      }, {
+        name: 'Snow Height - Sölden 2',
         id: '12:34:56:78:9A:BC'
       }];
     }

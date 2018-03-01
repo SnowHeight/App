@@ -1,0 +1,22 @@
+{
+  "configure": {
+    "connectedTo": "Verbunden mit {{name}}",
+    "data": "Daten",
+    "disconnect": "Trennen",
+    "loadErrorLogs": "Fehlerberichte laden",
+    "loadGeneralData": "Messdaten laden",
+    "loadLaserData": "Laserdaten laden",
+    "saveSettings": "Einstellungen speichern",
+    "settings": "Einstellungen",
+    "title": "SnowHeight"
+  },
+  "connect": {
+    "noDevices": "Keine gepaarten Geräte gefunden",
+    "openSettings": "Bluetooth Einstellungen öffnen",
+    "pairFirst": "Du musst zuerst ein Gerät in den Einstellungen paaren bevor du dich mit dem Gerät über die Snow Height App verbinden kannst.",
+    "paired": "Gepaarte geräte",
+    "refresh": "Geräte aktualisieren",
+    "selectToConnect": "Wähle eines der folgende Geräte aus, um dich zu verbinden. Das Gerät muss eine SnowHeight-Sonde sein.",
+    "title": "SnowHeight"
+  }
+}

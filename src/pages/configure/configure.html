@@ -1,30 +1,30 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Snow Height</ion-title>
+    <ion-title>{{'configure.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h2>Connected to {{name}}</h2>
-  <button ion-button color="danger" full (click)="disconnect()"><ion-icon icon="close"></ion-icon> Disconnect</button>
+  <h2 [translate]="'configure.connectedTo'" [translateParams]="{name: name}"></h2>
+  <button ion-button color="danger" full (click)="disconnect()"><ion-icon icon="close"></ion-icon> {{'configure.disconnect' | translate}}</button>
 
   <hr />
   <div *ngIf="config">
-    <h3>Settings</h3>
+    <h3>{{'configure.settings' | translate}}</h3>
     <ion-list *ngFor="let key of _.keys(config)">
         <ion-item>
           <ion-label color="primary">{{key}}</ion-label>
           <ion-input placeholder="{{key}}" [(ngModel)]="config[key]"></ion-input>
         </ion-item>
     </ion-list>
-    <button ion-button full color="secondary" (click)="saveConfig()">Save settings</button>
+    <button ion-button full color="secondary" (click)="saveConfig()">{{'configure.saveSettings' | translate}}</button>
 
-    <h3>Data</h3>
-    <button ion-button full color="primary">Load general data</button>
-    <button ion-button full color="primary">Load laser data</button>
-    <button ion-button full color="primary">Load error logs</button>
+    <h3>{{'configure.data' | translate}}</h3>
+    <button ion-button full color="primary" (click)="loadGeneralData()">{{'configure.loadGeneralData' | translate}}</button>
+    <button ion-button full color="primary" (click)="loadLaserData()">{{'configure.loadLaserData' | translate}}</button>
+    <button ion-button full color="primary" (click)="loadErrorLogs()">{{'configure.loadErrorLogs' | translate}}</button>
   </div>
 </ion-content>

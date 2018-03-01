@@ -1,15 +1,14 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>SnowHeight</ion-title>
+    <ion-title>{{'connect.title' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button ion-button full color="primary" (click)="loadDevices()">Refresh devices</button>
-  <ion-label>Paired devices:</ion-label>
   <div *ngIf="devices">
     <div *ngIf="devices.length">
-      <h2>Select device</h2>
+      <h2>{{'connect.paired' | translate}}</h2>
+      <p>{{'connect.selectToConnect' | translate}}</p>
       <ion-list>
         <button *ngFor="let device of devices" ion-item  detail-push (click)="connect(device)">
           {{device.name}}<br />
@@ -18,7 +17,10 @@
       </ion-list>
     </div>
     <div *ngIf="!devices.length">
-      <h2>No devices found</h2>
+      <h2>{{'connect.noDevices' | translate}}</h2>
+      <p>{{'connect.pairFirst' | translate}}</p>
     </div>
   </div>
+  <button ion-button full icon-start color="light" (click)="openSettings()"><ion-icon name="bluetooth"></ion-icon> {{'connect.openSettings' | translate}}</button>
+  <button ion-button full icon-start color="primary" (click)="loadDevices()"><ion-icon name="refresh"></ion-icon> {{'connect.refresh' | translate}}</button>
 </ion-content>

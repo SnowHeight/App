@@ -27,7 +27,7 @@ export class ConfigurePage {
   interval: number = null;
   config: any = null;
 
-  async readConfig() {
+  async loadConfig() {
     try {
       let loading = this.loadingCtrl.create({
         content: 'Reading config from device'
@@ -56,6 +56,10 @@ export class ConfigurePage {
     }
   }
 
+  async loadFakeConfig() {
+    this.config = this.bridge.parseConfig(`[settings]BluetoothName=${this.name};BluetoothCode=1234;UltraSonicInterval=1;LaserInterval=10;Height=150;ServoDrivingTime=100;PowerSaveVoltage=12[/settings]`);
+  }
+
   async saveConfig() {
     try {
       let configString = this.bridge.configObjectToString(this.config);
@@ -67,14 +71,20 @@ export class ConfigurePage {
       }).present();
     } catch(e) {
       await this.alertCtrl.create({
-        title: 'Failed to save config'
+        title: 'Failed to save config',
+        buttons: ['Oh no']
       }).present();
     }
   }
 
   async ionViewDidLoad() {
     this.name = this.navParams.data.name;
-    await this.readConfig();
+
+    if(this.platform.is('cordova')) {
+      await this.loadConfig();
+    } else {
+      this.loadFakeConfig();
+    }
     this.interval = setInterval(async () => {
       if (this.platform.is('cordova')) {
         try {
@@ -116,19 +126,32 @@ export class ConfigurePage {
     }
   }
 
+  async loadGeneralData() {
+    this.bluetooth.write(this.bridge.textToUint8Array('[gdata]'));
+  }
+
+
+  async loadLaserData() {
+    this.bluetooth.write(this.bridge.textToUint8Array('[ldata]'));
+  }
+
+
+  async loadErrorLogs() {
+    this.bluetooth.write(this.bridge.textToUint8Array('[elogs]'));
+  }
+
   async disconnect() {
     clearInterval(this.interval);
     if (this.platform.is('cordova')) {
       try {
         await this.bluetooth.disconnect();
-        this.navCtrl.setRoot(ConnectPage);
       } catch (e) {
         await this.alertCtrl.create({
           title: 'Failed to disconnect',
           buttons: ['Oh no']
         }).present();
-        this.navCtrl.setRoot(ConnectPage);
       }
     }
+    this.navCtrl.setRoot(ConnectPage);
   }
 }

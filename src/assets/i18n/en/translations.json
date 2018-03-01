@@ -1,0 +1,22 @@
+{
+  "configure": {
+    "connectedTo": "Connected to {{name}}",
+    "data": "Data",
+    "disconnect": "Disconnect",
+    "loadErrorLogs": "Load error logs",
+    "loadGeneralData": "Load general data",
+    "loadLaserData": "Load laser data",
+    "saveSettings": "Save settings",
+    "settings": "Settings",
+    "title": "SnowHeight"
+  },
+  "connect": {
+    "noDevices": "No paired devices found",
+    "openSettings": "Open Bluetooth settings",
+    "pairFirst": "You first have to pair a device in the bluetooth settings before you can connect to it via the Snow Height app.",
+    "paired": "Paired devices:",
+    "refresh": "Refresh devicess",
+    "selectToConnect": "Select one of the following devices to connect. The devices has to be a SnowHeight probe.",
+    "title": "SnowHeight"
+  }
+}

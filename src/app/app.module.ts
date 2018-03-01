@@ -10,6 +10,14 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {ConnectPage} from "../pages/connect/connect";
 import {ConfigurePage} from "../pages/configure/configure";
 import {BridgeService} from "../services/bridge.service";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, 'assets/i18n/', '/translations.json');
+}
 
 @NgModule({
   declarations: [
@@ -19,6 +27,14 @@ import {BridgeService} from "../services/bridge.service";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -35,4 +51,5 @@ import {BridgeService} from "../services/bridge.service";
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -4,7 +4,7 @@ import * as _ from "lodash";
 @Injectable()
 export class BridgeService {
   parseConfig(s) {
-    let regex = /(\w+)=(\w+)/gm;
+    let regex = /([^\[\];]+)=([^\[\];]+)/gm;
     let obj = {};
     let match;
     while (match = regex.exec(s)) {
