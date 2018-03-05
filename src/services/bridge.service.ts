@@ -5,7 +5,7 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 export enum Commands {
   SAVE_SETTINGS = 'savesettings',
   GDATA_NEXT = 'gdata:next',
-  GDATA = 'gdata',
+  GDATA = 'gdata'
 }
 
 @Injectable()
@@ -64,7 +64,7 @@ export class BridgeService {
           if (checksum !== calculatedChecksum) {
             console.log(
               'row not valid. checksum does not match',
-              `${calculatedChecksum} !== ${checksum}`,
+              `${calculatedChecksum} !== ${checksum}`
             );
             return false;
           }
@@ -109,7 +109,7 @@ export class BridgeService {
           reject(new Error('timeout exceeded'));
         } else {
           console.log(
-            'timeout finished but command also did. everything is ok',
+            'timeout finished but command also did. everything is ok'
           );
         }
       }, 15000);
@@ -149,7 +149,7 @@ export class BridgeService {
           reject(new Error('timeout exceeded'));
         } else {
           console.log(
-            'timeout finished but command also did. everything is ok',
+            'timeout finished but command also did. everything is ok'
           );
         }
       }, 15000);

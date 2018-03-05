@@ -5,16 +5,17 @@ import {
   ModalController,
   NavController,
   NavParams,
-  Platform,
+  Platform
 } from 'ionic-angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { ConnectPage } from '../connect/connect';
 import { BridgeService } from '../../services/bridge.service';
 import * as _ from 'lodash';
+import { File } from '@ionic-native/file';
 
 @Component({
   selector: 'page-configure',
-  templateUrl: 'configure.html',
+  templateUrl: 'configure.html'
 })
 export class ConfigurePage {
   constructor(
@@ -26,6 +27,7 @@ export class ConfigurePage {
     private bridge: BridgeService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
+    private file: File
   ) {}
 
   _: any = _;
@@ -35,14 +37,14 @@ export class ConfigurePage {
 
   async loadConfig() {
     let loading = this.loadingCtrl.create({
-      content: 'Reading config from device',
+      content: 'Reading config from device'
     });
     await loading.present();
 
     try {
       let settings = await this.bridge.executeCommandWithReturnValue(
         'settings',
-        null,
+        null
       );
       this.config = this.bridge.parseConfig(settings);
       await loading.dismiss();
@@ -51,7 +53,7 @@ export class ConfigurePage {
       await this.alertCtrl
         .create({
           title: 'Failed to read the settings from the device',
-          buttons: ['Oh no'],
+          buttons: ['Oh no']
         })
         .present();
       this.navCtrl.setRoot(ConnectPage);
@@ -62,7 +64,7 @@ export class ConfigurePage {
     this.config = this.bridge.parseConfig(
       `[settings]BluetoothName=${
         this.name
-      };BluetoothCode=1234;UltraSonicInterval=1;LaserInterval=10;Height=150;ServoDrivingTime=100;PowerSaveVoltage=12[/settings]`,
+      };BluetoothCode=1234;UltraSonicInterval=1;LaserInterval=10;Height=150;ServoDrivingTime=100;PowerSaveVoltage=12[/settings]`
     );
   }
 
@@ -74,14 +76,14 @@ export class ConfigurePage {
       await this.alertCtrl
         .create({
           title: 'Saved config',
-          buttons: ['Ok'],
+          buttons: ['Ok']
         })
         .present();
     } catch (e) {
       await this.alertCtrl
         .create({
           title: 'Failed to save config',
-          buttons: ['Oh no'],
+          buttons: ['Oh no']
         })
         .present();
     }
@@ -104,7 +106,7 @@ export class ConfigurePage {
             await this.alertCtrl
               .create({
                 title: 'Lost connection',
-                buttons: ['Oh no'],
+                buttons: ['Oh no']
               })
               .present();
             this.navCtrl.setRoot(ConnectPage);
@@ -117,7 +119,7 @@ export class ConfigurePage {
           await this.alertCtrl
             .create({
               title: 'Lost connection',
-              buttons: ['Oh no'],
+              buttons: ['Oh no']
             })
             .present();
           this.navCtrl.setRoot(ConnectPage);
@@ -140,14 +142,39 @@ export class ConfigurePage {
     }
   }
 
+  async saveRows(filename, rows) {
+    try {
+      await this.file.createFile(
+        this.file.externalDataDirectory,
+        filename,
+        false
+      );
+    } catch (e) {}
+    console.log(
+      _.map(rows, row => row.substring(0, row.lastIndexOf('@'))).join('\n') +
+        '\n'
+    );
+    await this.file.writeFile(
+      this.file.externalDataDirectory,
+      filename,
+      _.map(rows, row => row.substring(0, row.lastIndexOf('@'))).join('\n') +
+        '\n',
+      {
+        append: true,
+        replace: false
+      }
+    );
+    console.log('wrote file');
+  }
+
   async loadGeneralData() {
     let loading = this.loadingCtrl.create({
-      content: 'Loading general data...',
+      content: 'Loading general data...'
     });
     await loading.present();
     try {
       let total = await this.bridge.executeCommandWithReturnValue(
-        'gdata:length',
+        'gdata:length'
       );
       let loaded = 0;
       while (true) {
@@ -157,7 +184,7 @@ export class ConfigurePage {
           let rows = data.trim().split('\n');
           if (rows.length) {
             if (this.bridge.rowsValid(rows)) {
-              //TODO save data
+              await this.saveRows('gdata.csv', rows);
               loaded += rows.length;
               await this.bridge.executeCommand('gdata:next');
             } else {
@@ -170,7 +197,9 @@ export class ConfigurePage {
           break;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error('something went wrong', e);
+    }
     await loading.dismiss();
   }
 
@@ -191,7 +220,7 @@ export class ConfigurePage {
         await this.alertCtrl
           .create({
             title: 'Failed to disconnect',
-            buttons: ['Oh no'],
+            buttons: ['Oh no']
           })
           .present();
       }

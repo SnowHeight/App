@@ -29,11 +29,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
+        deps: [HttpClient]
+      }
     }),
-    File,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, ConnectPage, ConfigurePage],
@@ -42,7 +41,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SplashScreen,
     BluetoothSerial,
     BridgeService,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-  ],
+    File,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
+  ]
 })
 export class AppModule {}
