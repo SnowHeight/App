@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ConnectPage } from '../pages/connect/connect';
 import { TranslateService } from '@ngx-translate/core';
 import { File } from '@ionic-native/file';
+import {Nav, Platform} from "ionic-angular";
 
 @Component({
   templateUrl: 'app.html'

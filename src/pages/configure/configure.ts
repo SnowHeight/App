@@ -12,7 +12,7 @@ import { ConnectPage } from '../connect/connect';
 import { BridgeService } from '../../services/bridge.service';
 import * as _ from 'lodash';
 import { File } from '@ionic-native/file';
-import { SettingsPage } from '../settings/settingsf';
+import { SettingsPage } from '../settings/settings';
 
 @Component({
   selector: 'page-configure',
