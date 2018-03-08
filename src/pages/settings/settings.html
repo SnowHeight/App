@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'settings.title' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <h3>{{'settings.settings' | translate}}</h3>
+  <ion-list *ngFor="let key of _.keys(config)">
+    <ion-item>
+      <ion-label color="primary">{{key}}</ion-label>
+      <ion-input placeholder="{{key}}" [(ngModel)]="config[key]"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button full color="secondary" (click)="saveConfig()">{{'settings.saveSettings' | translate}}</button>
+</ion-content>

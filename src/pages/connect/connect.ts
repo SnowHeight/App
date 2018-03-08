@@ -8,6 +8,7 @@ import {
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { ConfigurePage } from '../configure/configure';
 import { File } from '@ionic-native/file';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-home',
@@ -20,17 +21,18 @@ export class ConnectPage {
     private bluetooth: BluetoothSerial,
     private platform: Platform,
     private loadingCtrl: LoadingController,
-    private file: File
+    private file: File,
+    private translate: TranslateService
   ) {}
 
   devices: any[] = [];
 
   async connect(device) {
+    let loading = this.loadingCtrl.create({
+      content: await this.translate.get('connect.connecting').toPromise()
+    });
+    await loading.present();
     if (this.platform.is('cordova')) {
-      let loading = this.loadingCtrl.create({
-        content: 'Connecting'
-      });
-      await loading.present();
       this.bluetooth.connect(device.id).subscribe(
         async status => {
           await loading.dismiss();
@@ -43,22 +45,27 @@ export class ConnectPage {
           await loading.dismiss();
           await this.alertCtrl
             .create({
-              title: 'Failed to connect',
-              buttons: ['Oh no']
+              title: await this.translate
+                .get('connect.connectingError')
+                .toPromise(),
+              buttons: ['Ok']
             })
             .present();
         }
       );
     } else {
-      this.navCtrl.setRoot(ConfigurePage, {
-        name: device.name
-      });
+      setTimeout(async () => {
+        await loading.dismiss();
+        this.navCtrl.setRoot(ConfigurePage, {
+          name: device.name
+        });
+      }, 1500);
     }
   }
 
   async loadDevices() {
     let loading = this.loadingCtrl.create({
-      content: 'Discovering available devices...'
+      content: await this.translate.get('connect.loading').toPromise()
     });
     await loading.present();
     this.bluetooth

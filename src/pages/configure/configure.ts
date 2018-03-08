@@ -12,6 +12,7 @@ import { ConnectPage } from '../connect/connect';
 import { BridgeService } from '../../services/bridge.service';
 import * as _ from 'lodash';
 import { File } from '@ionic-native/file';
+import { SettingsPage } from '../settings/settingsf';
 
 @Component({
   selector: 'page-configure',
@@ -35,68 +36,9 @@ export class ConfigurePage {
   interval: number = null;
   config: any = null;
 
-  async loadConfig() {
-    let loading = this.loadingCtrl.create({
-      content: 'Reading config from device'
-    });
-    await loading.present();
-
-    try {
-      let settings = await this.bridge.executeCommandWithReturnValue(
-        'settings',
-        null
-      );
-      this.config = this.bridge.parseConfig(settings);
-      await loading.dismiss();
-    } catch (e) {
-      await loading.dismiss();
-      await this.alertCtrl
-        .create({
-          title: 'Failed to read the settings from the device',
-          buttons: ['Oh no']
-        })
-        .present();
-      this.navCtrl.setRoot(ConnectPage);
-    }
-  }
-
-  async loadFakeConfig() {
-    this.config = this.bridge.parseConfig(
-      `[settings]BluetoothName=${
-        this.name
-      };BluetoothCode=1234;UltraSonicInterval=1;LaserInterval=10;Height=150;ServoDrivingTime=100;PowerSaveVoltage=12[/settings]`
-    );
-  }
-
-  async saveConfig() {
-    try {
-      let configString = this.bridge.configObjectToString(this.config);
-      console.log(configString);
-      await this.bridge.executeCommand('savesettings', configString);
-      await this.alertCtrl
-        .create({
-          title: 'Saved config',
-          buttons: ['Ok']
-        })
-        .present();
-    } catch (e) {
-      await this.alertCtrl
-        .create({
-          title: 'Failed to save config',
-          buttons: ['Oh no']
-        })
-        .present();
-    }
-  }
-
   async ionViewDidLoad() {
     this.name = this.navParams.data.name;
 
-    if (this.platform.is('cordova')) {
-      await this.loadConfig();
-    } else {
-      this.loadFakeConfig();
-    }
     this.interval = setInterval(async () => {
       if (this.platform.is('cordova')) {
         try {
@@ -140,6 +82,12 @@ export class ConfigurePage {
     } catch (e) {
       console.log('failed to disconnect on leave');
     }
+  }
+
+  openSettings() {
+    this.navCtrl.push(SettingsPage, {
+      name: this.name
+    });
   }
 
   async saveRows(filename, rows) {

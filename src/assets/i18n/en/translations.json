@@ -11,12 +11,20 @@
     "title": "SnowHeight"
   },
   "connect": {
+    "connect": "Connect device",
+    "connecting": "Connecting...",
+    "connectingError": "An error occured while connecting to the device",
+    "loading": "Discovering nearby devices...",
     "noDevices": "No paired devices found",
     "openSettings": "Open Bluetooth settings",
     "pairFirst": "You first have to pair a device in the bluetooth settings before you can connect to it via the Snow Height app.",
-    "paired": "Paired devices:",
     "refresh": "Refresh devicess",
     "selectToConnect": "Select one of the following devices to connect. The devices has to be a SnowHeight probe.",
     "title": "SnowHeight"
+  },
+  "settings": {
+    "saveSettings": "Save",
+    "settings": "Settings",
+    "title": "Settings"
   }
 }

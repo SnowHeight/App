@@ -7,7 +7,7 @@
 <ion-content padding>
   <div *ngIf="devices">
     <div *ngIf="devices.length">
-      <h2>{{'connect.paired' | translate}}</h2>
+      <h2>{{'connect.connect' | translate}}</h2>
       <p>{{'connect.selectToConnect' | translate}}</p>
       <ion-list>
         <button *ngFor="let device of devices" ion-item  detail-push (click)="connect(device)">

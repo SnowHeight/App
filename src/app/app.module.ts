@@ -14,6 +14,7 @@ import { BridgeService } from '../services/bridge.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SettingsPage } from '../pages/settings/settings';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -21,7 +22,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [MyApp, ConnectPage, ConfigurePage],
+  declarations: [MyApp, ConnectPage, ConfigurePage, SettingsPage],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -35,7 +36,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, ConnectPage, ConfigurePage],
+  entryComponents: [MyApp, ConnectPage, ConfigurePage, SettingsPage],
   providers: [
     StatusBar,
     SplashScreen,
