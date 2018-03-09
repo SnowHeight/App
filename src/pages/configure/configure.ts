@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {
   AlertController,
   LoadingController,
-  ModalController,
   NavController,
   NavParams,
   Platform
@@ -13,6 +12,8 @@ import { BridgeService } from '../../services/bridge.service';
 import * as _ from 'lodash';
 import { File } from '@ionic-native/file';
 import { SettingsPage } from '../settings/settings';
+import { ReportPage } from '../report/report';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-configure',
@@ -22,12 +23,12 @@ export class ConfigurePage {
   constructor(
     public navCtrl: NavController,
     private navParams: NavParams,
-    private modalCtrl: ModalController,
     private bluetooth: BluetoothSerial,
     private platform: Platform,
     private bridge: BridgeService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
+    private translate: TranslateService,
     private file: File
   ) {}
 
@@ -84,10 +85,7 @@ export class ConfigurePage {
         false
       );
     } catch (e) {}
-    console.log(
-      _.map(rows, row => row.substring(0, row.lastIndexOf('@'))).join('\n') +
-        '\n'
-    );
+
     await this.file.writeFile(
       this.file.externalDataDirectory,
       filename,
@@ -102,26 +100,76 @@ export class ConfigurePage {
   }
 
   async loadGeneralData() {
+    if (!this.platform.is('cordova')) {
+      this.navCtrl.push(ReportPage, {
+        aborted: false,
+        loadedRows: 1000,
+        availableRows: 1000,
+        rows: this.bridge.generateGeneralData(1000),
+        failedRequests: 1,
+        totalRequests: 9,
+        duration: 65321
+      });
+      return;
+    }
+
     let loading = this.loadingCtrl.create({
       content: 'Loading general data...'
     });
     await loading.present();
+
+    let start = Date.now();
+
+    //amount of lines that were loaded
+    let loadedRows = 0;
+    let totalRequests = 0;
+    let failedRequests = 0;
+
+    //if we aborted the transmission in case of too many errors/inconsistencies
+    let aborted = false;
+
+    //all the rows we transmitted (after every transmission the transmitted rows are persisted and added to this array for later analysis)y
+    let allRows = [];
+
+    let availableRows = null;
+
     try {
-      let total = await this.bridge.executeCommandWithReturnValue(
+      availableRows = await this.bridge.executeCommandWithReturnValue(
         'gdata:length'
       );
-      let loaded = 0;
+    } catch (e) {
+      await this.alertCtrl
+        .create({
+          title: await this.translate
+            .get('configure.availableRowsError')
+            .toPromise(),
+          buttons: [await this.translate.get('generic.confirm').toPromise()]
+        })
+        .present();
+      return;
+    }
+
+    try {
       while (true) {
-        loading.setContent(`Loading general data... (${loaded}/${total})`);
+        loading.setContent(
+          `Loading general data... (${loadedRows}/${availableRows})`
+        );
+        totalRequests++;
         let data = await this.bridge.executeCommandWithReturnValue('gdata');
         if (data) {
           let rows = data.trim().split('\n');
+          allRows = allRows.concat(rows);
           if (rows.length) {
             if (this.bridge.rowsValid(rows)) {
               await this.saveRows('gdata.csv', rows);
-              loaded += rows.length;
+              loadedRows += rows.length;
               await this.bridge.executeCommand('gdata:next');
             } else {
+              failedRequests++;
+              if (failedRequests > 10) {
+                aborted = true;
+                break;
+              }
               //data not valid, request gdata again
             }
           } else {
@@ -134,6 +182,15 @@ export class ConfigurePage {
     } catch (e) {
       console.error('something went wrong', e);
     }
+    this.navCtrl.push(ReportPage, {
+      aborted: aborted,
+      loadedRows: loadedRows,
+      availableRows: availableRows,
+      rows: allRows,
+      failedRequests: failedRequests,
+      totalRequests: totalRequests,
+      duration: Date.now() - start
+    });
     await loading.dismiss();
   }
 

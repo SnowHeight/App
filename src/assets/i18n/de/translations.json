@@ -25,6 +25,10 @@
   "generic": {
     "confirm": "Ok"
   },
+  "report": {
+    "details": "Details",
+    "title": "Übertragungsbericht"
+  },
   "settings": {
     "loadError": "Beim Laden der Einstellungen ist ein Fehler aufgetreten",
     "loading": "Lade Einstellungen von Gerät...",

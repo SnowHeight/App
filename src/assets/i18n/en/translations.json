@@ -25,6 +25,10 @@
   "generic": {
     "confirm": "Ok"
   },
+  "report": {
+    "details": "Details",
+    "title": "Transmission report"
+  },
   "settings": {
     "loadError": "An error occured while loading the settings from the device",
     "loading": "Loading settings from device...",

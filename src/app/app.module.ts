@@ -15,6 +15,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { SettingsPage } from '../pages/settings/settings';
+import { ReportPage } from '../pages/report/report';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -22,7 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [MyApp, ConnectPage, ConfigurePage, SettingsPage],
+  declarations: [MyApp, ConnectPage, ConfigurePage, SettingsPage, ReportPage],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -33,10 +36,18 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, ConnectPage, ConfigurePage, SettingsPage],
+  entryComponents: [
+    MyApp,
+    ConnectPage,
+    ConfigurePage,
+    SettingsPage,
+    ReportPage
+  ],
   providers: [
     StatusBar,
     SplashScreen,

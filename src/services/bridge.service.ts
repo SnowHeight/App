@@ -155,4 +155,13 @@ export class BridgeService {
       }, 15000);
     });
   }
+
+  generateGeneralData(amount: number) {
+    let items = [];
+    _.times(amount, index => {
+      let string = `${index};201803020912;36;1005;124;22`;
+      items.push(`${string}@${this.calculateChecksum(string)}`);
+    });
+    return items;
+  }
 }
