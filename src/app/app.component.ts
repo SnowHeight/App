@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConnectPage } from '../pages/connect/connect';
 import { TranslateService } from '@ngx-translate/core';
 import { File } from '@ionic-native/file';
-import {Nav, Platform} from "ionic-angular";
+import { Nav, Platform } from 'ionic-angular';
 
 @Component({
   templateUrl: 'app.html'

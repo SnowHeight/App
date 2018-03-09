@@ -10,6 +10,7 @@ import {
 import { BridgeService } from '../../services/bridge.service';
 import { ConnectPage } from '../connect/connect';
 import * as _ from 'lodash';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-settings',
@@ -26,7 +27,8 @@ export class SettingsPage {
     public bridge: BridgeService,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    public platform: Platform
+    public platform: Platform,
+    public translate: TranslateService
   ) {}
 
   async ionViewDidLoad() {
@@ -41,7 +43,7 @@ export class SettingsPage {
 
   async loadConfig() {
     let loading = this.loadingCtrl.create({
-      content: 'Reading config from device'
+      content: await this.translate.get('settings.loading').toPromise()
     });
     await loading.present();
 
@@ -56,8 +58,8 @@ export class SettingsPage {
       await loading.dismiss();
       await this.alertCtrl
         .create({
-          title: 'Failed to read the settings from the device',
-          buttons: ['Oh no']
+          title: await this.translate.get('settings.loadError').toPromise(),
+          buttons: [await this.translate.get('generic.confirm').toPromise()]
         })
         .present();
       this.navCtrl.setRoot(ConnectPage);
@@ -79,15 +81,15 @@ export class SettingsPage {
       await this.bridge.executeCommand('savesettings', configString);
       await this.alertCtrl
         .create({
-          title: 'Saved config',
-          buttons: ['Ok']
+          title: await this.translate.get('settings.saveSuccess').toPromise(),
+          buttons: [await this.translate.get('generic.confirm').toPromise()]
         })
         .present();
     } catch (e) {
       await this.alertCtrl
         .create({
-          title: 'Failed to save config',
-          buttons: ['Oh no']
+          title: await this.translate.get('settings.saveError').toPromise(),
+          buttons: [await this.translate.get('generic.confirm').toPromise()]
         })
         .present();
     }

@@ -69,7 +69,7 @@ export class ConnectPage {
     });
     await loading.present();
     this.bluetooth
-      .discoverUnpaired()
+      .list()
       .then(device => {
         this.devices = device;
         loading.dismiss();

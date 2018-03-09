@@ -22,8 +22,16 @@
     "selectToConnect": "Select one of the following devices to connect. The devices has to be a SnowHeight probe.",
     "title": "SnowHeight"
   },
+  "generic": {
+    "confirm": "Ok"
+  },
   "settings": {
+    "loadError": "An error occured while loading the settings from the device",
+    "loading": "Loading settings from device...",
+    "saveError": "The settings could not be saved successfully",
     "saveSettings": "Save",
+    "saveSuccess": "The settings were saved sucessfully",
+    "saving": "Saving settings...",
     "settings": "Settings",
     "title": "Settings"
   }

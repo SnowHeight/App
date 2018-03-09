@@ -22,8 +22,16 @@
     "selectToConnect": "Wähle eines der folgende Geräte aus, um dich zu verbinden. Das Gerät muss eine SnowHeight-Sonde sein.",
     "title": "SnowHeight"
   },
+  "generic": {
+    "confirm": "Ok"
+  },
   "settings": {
+    "loadError": "Beim Laden der Einstellungen ist ein Fehler aufgetreten",
+    "loading": "Lade Einstellungen von Gerät...",
+    "saveError": "Die Einstellungen konnten nicht gespeichert werden",
     "saveSettings": "Speichern",
+    "saveSuccess": "Die Einstellungen wurden erfolgreich gespeichert",
+    "saving": "Einstellungen werden gespeichert...",
     "settings": "Einstellungen",
     "title": "Einstellungen"
   }

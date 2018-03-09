@@ -70,20 +70,6 @@ export class ConfigurePage {
     }, 2000);
   }
 
-  ionViewWillLeave() {
-    console.log('clearing interval');
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
-    try {
-      if (this.platform.is('cordova')) {
-        this.bluetooth.disconnect();
-      }
-    } catch (e) {
-      console.log('failed to disconnect on leave');
-    }
-  }
-
   openSettings() {
     this.navCtrl.push(SettingsPage, {
       name: this.name
@@ -164,14 +150,7 @@ export class ConfigurePage {
     if (this.platform.is('cordova')) {
       try {
         await this.bluetooth.disconnect();
-      } catch (e) {
-        await this.alertCtrl
-          .create({
-            title: 'Failed to disconnect',
-            buttons: ['Oh no']
-          })
-          .present();
-      }
+      } catch (e) {}
     }
     this.navCtrl.setRoot(ConnectPage);
   }
