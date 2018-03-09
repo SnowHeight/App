@@ -1,0 +1,65 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{'report.title' | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h2>Übersicht</h2>
+  <p>
+    Die Daten wurden bereits auf die SD-Karte gespeichert.
+  </p>
+  <ion-list>
+    <ion-item>
+      Status
+      <ion-note item-end class="text-success">
+        Abgeschlossen
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      Dauer
+      <ion-note item-end>
+        {{duration}} Sekunden
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      Datensätze
+      <ion-note item-end>
+        {{context.loadedRows}}
+      </ion-note>
+    </ion-item>
+  </ion-list>
+
+  <h2>Stabilität</h2>
+  <ion-grid>
+  <ion-row>
+    <ion-col>
+    </ion-col>
+    <ion-col col-10>
+      <ngx-charts-pie-chart
+        [scheme]="transmissionChart.scheme"
+        [results]="transmissionChart.data">
+      </ngx-charts-pie-chart>
+    </ion-col>
+    <ion-col>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
+  <ion-list>
+    <ion-item>
+      Erfolgreich
+      <ion-note item-end>
+        {{context.totalRequests - context.failedRequests}}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      Fehlgeschlagen
+      <ion-note item-end>
+        {{context.failedRequests}}
+      </ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>
