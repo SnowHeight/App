@@ -6,6 +6,7 @@
     "loadErrorLogs": "Load error logs",
     "loadGeneralData": "Load general data",
     "loadLaserData": "Load laser data",
+    "lostConnection": "The connection was lost",
     "saveSettings": "Save settings",
     "settings": "Settings",
     "title": "SnowHeight"

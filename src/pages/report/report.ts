@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {BridgeService} from "../../services/bridge.service";
+import * as _ from "lodash";
 
 @Component({
   selector: 'page-report',
@@ -16,9 +18,10 @@ export class ReportPage {
   context: any = null;
   duration: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public bridge: BridgeService) {
     this.context = this.navParams.data;
     this.duration = Math.floor(this.context.duration / 1000).toString();
+    _(this.context.loadedRows).map(this.bridge.parseGeneralDataEntry).sort('date');
     this.transmissionChart.data = [
       {
         name: 'Success',

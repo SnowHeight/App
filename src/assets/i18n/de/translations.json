@@ -6,6 +6,7 @@
     "loadErrorLogs": "Fehlerberichte laden",
     "loadGeneralData": "Messdaten laden",
     "loadLaserData": "Laserdaten laden",
+    "lostConnection": "Die Verbindung wurde unterbrochen",
     "saveSettings": "Einstellungen speichern",
     "settings": "Einstellungen",
     "title": "SnowHeight"

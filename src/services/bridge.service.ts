@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import {GeneralDataEntry} from "./model";
+import moment from "moment";
 
 export enum Commands {
   SAVE_SETTINGS = 'savesettings',
@@ -154,6 +156,19 @@ export class BridgeService {
         }
       }, 15000);
     });
+  }
+
+  parseGeneralDataEntry(s: string): GeneralDataEntry {
+    let parts = _.map(s.split(';'), s => s.trim());
+    let date = moment(parts[1], 'YYYYMMDDHHmm');
+    return {
+      id: parts[0],
+      date: date.milliseconds(),
+      temperature: +parts[2],
+      pressure: +parts[3],
+      floorDistance: +parts[4],
+      humidity: +parts[5]
+    }
   }
 
   generateGeneralData(amount: number) {
