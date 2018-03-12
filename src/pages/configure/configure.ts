@@ -48,8 +48,12 @@ export class ConfigurePage {
             this.loadingCtrl.create().dismissAll();
             await this.alertCtrl
               .create({
-                title: await this.translate.get('configure.lostConnection').toPromise(),
-                buttons: [await this.translate.get('generic.confirm').toPromise()]
+                title: await this.translate
+                  .get('configure.lostConnection')
+                  .toPromise(),
+                buttons: [
+                  await this.translate.get('generic.confirm').toPromise()
+                ]
               })
               .present();
             this.navCtrl.setRoot(ConnectPage);
@@ -61,7 +65,9 @@ export class ConfigurePage {
           this.loadingCtrl.create().dismissAll();
           await this.alertCtrl
             .create({
-              title: await this.translate.get('configure.lostConnection').toPromise(),
+              title: await this.translate
+                .get('configure.lostConnection')
+                .toPromise(),
               buttons: [await this.translate.get('generic.confirm').toPromise()]
             })
             .present();

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
-import {GeneralDataEntry} from "./model";
-import moment from "moment";
+import { GeneralDataEntry } from './model';
+import moment from 'moment';
 
 export enum Commands {
   SAVE_SETTINGS = 'savesettings',
@@ -168,7 +168,7 @@ export class BridgeService {
       pressure: +parts[3],
       floorDistance: +parts[4],
       humidity: +parts[5]
-    }
+    };
   }
 
   generateGeneralData(amount: number) {
