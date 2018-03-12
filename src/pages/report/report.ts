@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { BridgeService } from '../../services/bridge.service';
 import * as _ from 'lodash';
+import {GeneralDataEntry} from "../../services/model";
 
 @Component({
   selector: 'page-report',
@@ -17,6 +18,9 @@ export class ReportPage {
 
   context: any = null;
   duration: string;
+  data: GeneralDataEntry[];
+  oldestEntry: GeneralDataEntry;
+  newestEntry: GeneralDataEntry;
 
   constructor(
     public navCtrl: NavController,
@@ -25,9 +29,12 @@ export class ReportPage {
   ) {
     this.context = this.navParams.data;
     this.duration = Math.floor(this.context.duration / 1000).toString();
-    _(this.context.loadedRows)
+    this.data = _(this.context.rows)
       .map(this.bridge.parseGeneralDataEntry)
-      .sort('date');
+      .sort((o1, o2) => o1.date - o2.date)
+      .value();
+    this.oldestEntry = this.data[0];
+    this.newestEntry = this.data[this.data.length - 1];
     this.transmissionChart.data = [
       {
         name: 'Success',

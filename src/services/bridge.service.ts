@@ -3,12 +3,15 @@ import * as _ from 'lodash';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { GeneralDataEntry } from './model';
 import moment from 'moment';
+import Chance from 'chance';
 
 export enum Commands {
   SAVE_SETTINGS = 'savesettings',
   GDATA_NEXT = 'gdata:next',
   GDATA = 'gdata'
 }
+
+const chance = new Chance();
 
 @Injectable()
 export class BridgeService {
@@ -163,20 +166,26 @@ export class BridgeService {
     let date = moment(parts[1], 'YYYYMMDDHHmm');
     return {
       id: parts[0],
-      date: date.milliseconds(),
+      date: date.unix() * 1000,
       temperature: +parts[2],
       pressure: +parts[3],
       floorDistance: +parts[4],
-      humidity: +parts[5]
+      humidity: +parts[5],
+      year: date.year().toString(),
+      month: date.format('YYYY-MM'),
+      day: date.format('YYYY-MM-DD')
     };
   }
 
   generateGeneralData(amount: number) {
     let items = [];
+    let date = moment();
     _.times(amount, index => {
-      let string = `${index};201803020912;36;1005;124;22`;
+      date.subtract(10, 'minutes');
+      let string = `${amount - index - 1};${date.format("YYYYMMDDHHmm")};${chance.integer({max: 35, min: -20})};${chance.integer({min: 990, max: 1020})};${chance.integer({min: 115, max: 130})};${chance.integer({min: 10, max: 50})}`;
       items.push(`${string}@${this.calculateChecksum(string)}`);
     });
+    items.reverse();
     return items;
   }
 }

@@ -5,4 +5,8 @@ export interface GeneralDataEntry {
   pressure: number;
   floorDistance: number;
   humidity: number;
+
+  year: string;
+  month: string;
+  day: string;
 }

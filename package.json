@@ -31,6 +31,7 @@
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
     "@swimlane/ngx-charts": "^7.1.1",
+    "chance": "^1.0.13",
     "cordova-android": "7.1.0",
     "cordova-plugin-bluetooth-serial": "^0.4.7",
     "cordova-plugin-device": "^2.0.1",
