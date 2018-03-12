@@ -85,15 +85,23 @@ export class ConfigurePage {
 
   async saveRows(filename, rows) {
     try {
-      await this.file.createFile(
+      await this.file.createDir(
         this.file.externalDataDirectory,
+        this.name,
+        false
+      );
+    } catch (e) {}
+
+    try {
+      await this.file.createFile(
+        this.file.externalDataDirectory + '/' + this.name,
         filename,
         false
       );
     } catch (e) {}
 
     await this.file.writeFile(
-      this.file.externalDataDirectory,
+      this.file.externalDataDirectory + '/' + this.name,
       filename,
       _.map(rows, row => row.substring(0, row.lastIndexOf('@'))).join('\n') +
         '\n',
