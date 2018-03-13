@@ -1,5 +1,6 @@
 {
   "configure": {
+    "connected": "Connected",
     "connectedTo": "Connected to {{name}}",
     "data": "Data",
     "disconnect": "Disconnect",
@@ -9,6 +10,11 @@
     "lostConnection": "The connection was lost",
     "saveSettings": "Save settings",
     "settings": "Settings",
+    "status": "Status",
+    "synchronizeError": "Failed",
+    "synchronized": "Synchronized",
+    "synchronizing": "Synchronizing...",
+    "time": "Time",
     "title": "SnowHeight"
   },
   "connect": {

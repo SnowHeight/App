@@ -1,5 +1,6 @@
 {
   "configure": {
+    "connected": "Verbunden",
     "connectedTo": "Verbunden mit {{name}}",
     "data": "Daten",
     "disconnect": "Trennen",
@@ -9,6 +10,11 @@
     "lostConnection": "Die Verbindung wurde unterbrochen",
     "saveSettings": "Einstellungen speichern",
     "settings": "Einstellungen",
+    "status": "Status",
+    "synchronizeError": "Fehlgeschlagen",
+    "synchronized": "Synchronisiert",
+    "synchronizing": "Synchronisiere...",
+    "time": "Zeit",
     "title": "SnowHeight"
   },
   "connect": {

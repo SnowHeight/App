@@ -38,6 +38,9 @@ export class ConfigurePage {
   interval: number = null;
   config: any = null;
 
+  synchronizeSuccess: boolean = false;
+  synchronizingTime: boolean = true;
+
   async ionViewDidLoad() {
     this.name = this.navParams.data.name;
 
@@ -46,6 +49,12 @@ export class ConfigurePage {
         .utc()
         .format('YYYY-MM-d-DD-HH-mm-ss'.replace(/-/g, ''));
       await this.bridge.executeCommand('setdate', dateString);
+    } else {
+      this.synchronizingTime = true;
+      setTimeout(() => {
+        this.synchronizeSuccess = true;
+        this.synchronizingTime = false;
+      }, 1500);
     }
 
     this.interval = setInterval(async () => {

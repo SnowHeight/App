@@ -8,7 +8,29 @@
 
 
 <ion-content padding>
-  <h2 [translate]="'configure.connectedTo'" [translateParams]="{name: name}"></h2>
+  <h2>{{name}}</h2>
+
+  <ion-list>
+    <ion-item>
+      {{'configure.status' | translate}}
+      <ion-note item-end class="text-success">
+        {{'configure.connected' | translate}}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      {{'configure.time' | translate}}
+      <ion-note item-end *ngIf="synchronizingTime">
+        {{'configure.synchronizing' | translate}} <ion-spinner name="crescent"></ion-spinner>
+      </ion-note>
+      <ion-note item-end class="text-success" *ngIf="!synchronizingTime && synchronizeSuccess">
+        {{'configure.synchronized' | translate}}
+      </ion-note>
+      <ion-note item-end class="text-error" *ngIf="!synchronizingTime && !synchronizeSuccess">
+        {{'configure.synchronizeError' | translate}}
+      </ion-note>
+    </ion-item>
+  </ion-list>
+
   <button ion-button color="danger" full (click)="disconnect()">
     <ion-icon icon="close"></ion-icon>
     {{'configure.disconnect' | translate}}
