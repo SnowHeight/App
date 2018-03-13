@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
-import {BluetoothSerial} from '@ionic-native/bluetooth-serial';
-import {GeneralDataEntry} from './model';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { GeneralDataEntry } from './model';
 import moment from 'moment';
 import Chance from 'chance';
 
@@ -15,8 +15,7 @@ const chance = new Chance();
 
 @Injectable()
 export class BridgeService {
-  constructor(private bluetooth: BluetoothSerial) {
-  }
+  constructor(private bluetooth: BluetoothSerial) {}
 
   parseConfig(s) {
     let regex = /([^\[\];]+)=([^\[\];]+)/gm;
@@ -185,10 +184,10 @@ export class BridgeService {
       date.subtract(10, 'minutes');
       let string = `${amount - i - 1};${date.format(
         'YYYYMMDDHHmm'
-      )};${chance.integer({max: 35, min: -20})};${chance.integer({
+      )};${chance.integer({ max: 35, min: -20 })};${chance.integer({
         min: 990,
         max: 1020
-      })};${chance.integer({min: 115, max: 130})};${chance.integer({
+      })};${chance.integer({ min: 115, max: 130 })};${chance.integer({
         min: 10,
         max: 50
       })}`;

@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {BridgeService} from '../../services/bridge.service';
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+import { BridgeService } from '../../services/bridge.service';
 import * as _ from 'lodash';
-import {GeneralDataEntry} from '../../services/model';
-import {DataListPage} from "./data-list/data-list";
+import { GeneralDataEntry } from '../../services/model';
+import { DataListPage } from './data-list/data-list';
 
 @Component({
   selector: 'page-report',
@@ -23,9 +23,11 @@ export class ReportPage {
   oldestEntry: GeneralDataEntry;
   newestEntry: GeneralDataEntry;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public bridge: BridgeService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public bridge: BridgeService
+  ) {
     this.context = this.navParams.data;
     this.duration = Math.floor(this.context.duration / 1000).toString();
     this.data = _(this.context.rows)

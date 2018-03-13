@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {DataEntry} from "../../../services/model";
-import * as _ from "lodash";
+import { DataEntry } from '../../../services/model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'page-data-list',
-  templateUrl: 'data-list.html',
+  templateUrl: 'data-list.html'
 })
 export class DataListPage {
-
   key: string;
 
   //['2018-02', '2018-03']
@@ -20,7 +19,7 @@ export class DataListPage {
     this.key = navParams.data.key;
     let groups = _.groupBy(data, o => o[this.key]);
     _.each(groups, (value, key) => {
-      groups[key] = groups[key].length
+      groups[key] = groups[key].length;
     });
 
     this.items = groups;

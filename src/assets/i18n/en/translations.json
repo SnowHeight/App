@@ -23,11 +23,27 @@
     "selectToConnect": "Select one of the following devices to connect. The devices has to be a SnowHeight probe.",
     "title": "SnowHeight"
   },
+  "dataList": {
+    "title": "Measurement data"
+  },
   "generic": {
     "confirm": "Ok"
   },
   "report": {
+    "completed": "Completed",
+    "dataList": "Measurements per day/month",
+    "dataListDaily": "Per-day view",
+    "dataListMonthly": "Per-month view",
+    "dataStored": "The data was saved to the SD-card.",
     "details": "Details",
+    "duration": "Duration",
+    "entryCount": "Entries",
+    "failed": "Failed",
+    "newestEntry": "Newest entry",
+    "oldestEntry": "Oldest entry",
+    "seconds": "seconds",
+    "stability": "Stability",
+    "status": "Status",
     "title": "Transmission report"
   },
   "settings": {

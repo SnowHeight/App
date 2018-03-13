@@ -18,7 +18,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { ReportPage } from '../pages/report/report';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {DataListPage} from "../pages/report/data-list/data-list";
+import { DataListPage } from '../pages/report/data-list/data-list';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -26,7 +26,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [MyApp, ConnectPage, ConfigurePage, SettingsPage, ReportPage, DataListPage],
+  declarations: [
+    MyApp,
+    ConnectPage,
+    ConfigurePage,
+    SettingsPage,
+    ReportPage,
+    DataListPage
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

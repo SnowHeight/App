@@ -23,11 +23,28 @@
     "selectToConnect": "Wähle eines der folgende Geräte aus, um dich zu verbinden. Das Gerät muss eine SnowHeight-Sonde sein.",
     "title": "SnowHeight"
   },
+  "dataList": {
+    "title": "Messdaten"
+  },
   "generic": {
     "confirm": "Ok"
   },
   "report": {
+    "completed": "Abgeschlossen",
+    "dataList": "Messungen pro Tag/Monat",
+    "dataListDaily": "Tagesansicht",
+    "dataListMonthly": "Monatsansicht",
+    "dataStored": "Die Daten wurden bereits auf die SD-Karte gespeichert.",
     "details": "Details",
+    "duration": "Dauer",
+    "entryCount": "Datensätze",
+    "failed": "Fehlgeschlagen",
+    "failedExplanation": "Fehlgeschlagene Teilübertragungen werden automatisch wiederholt. Das bedeutet, dass selbst wenn viele fehlgeschlagene Teilübertragungen vorhanden sind, alle Daten korrekt übertragen werden.",
+    "newestEntry": "Neuester Eintrag",
+    "oldestEntry": "Ältester Eintrag",
+    "seconds": "Sekunden",
+    "stability": "Stabilität",
+    "status": "Status",
     "title": "Übertragungsbericht"
   },
   "settings": {

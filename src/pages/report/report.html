@@ -8,58 +8,64 @@
 
 
 <ion-content padding>
-  <h2>Übersicht</h2>
+  <h2>{{'report.title' | translate}}</h2>
   <p>
-    Die Daten wurden bereits auf die SD-Karte gespeichert.
+    {{'report.dataStored' | translate}}
   </p>
   <ion-list>
     <ion-item>
-      Status
-      <ion-note item-end class="text-success">
-        Abgeschlossen
+      {{'report.status' | translate}}
+      <ion-note item-end class="text-success" *ngIf="!aborted">
+        {{'report.completed' | translate}}
+      </ion-note>
+      <ion-note item-end class="text-error" *ngIf="aborted">
+        {{'report.notCompleted' | translate}}
       </ion-note>
     </ion-item>
     <ion-item>
-      Dauer
+      {{'report.duration' | translate}}
       <ion-note item-end>
-        {{duration}} Sekunden
+        {{duration}} {{'report.seconds' | translate}}
       </ion-note>
     </ion-item>
     <ion-item>
-      Datensätze
+      {{'report.entryCount' | translate}}
       <ion-note item-end>
         {{context.loadedRows}}
       </ion-note>
     </ion-item>
     <ion-item>
-      Ältester Eintrag
+      {{'report.oldestEntry' | translate}}
       <ion-note item-end>
         {{oldestEntry.day}}
       </ion-note>
     </ion-item>
     <ion-item>
-      Neuester Eintrag
+      {{'report.newestEntry' | translate}}
       <ion-note item-end>
         {{newestEntry.day}}
       </ion-note>
     </ion-item>
   </ion-list>
 
-  <h2>Stabilität</h2>
+  <h2>{{'report.stability' | translate}}</h2>
   <ion-grid>
-  <ion-row>
-    <ion-col>
-    </ion-col>
-    <ion-col col-10>
-      <ngx-charts-pie-chart
-        [scheme]="transmissionChart.scheme"
-        [results]="transmissionChart.data">
-      </ngx-charts-pie-chart>
-    </ion-col>
-    <ion-col>
-    </ion-col>
-  </ion-row>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col col-10>
+        <ngx-charts-pie-chart
+          [scheme]="transmissionChart.scheme"
+          [results]="transmissionChart.data">
+        </ngx-charts-pie-chart>
+      </ion-col>
+      <ion-col>
+      </ion-col>
+    </ion-row>
   </ion-grid>
+  <p>
+    {{'report.failedExplanation' | translate}}
+  </p>
   <ion-list>
     <ion-item>
       Erfolgreich
@@ -68,14 +74,14 @@
       </ion-note>
     </ion-item>
     <ion-item>
-      Fehlgeschlagen
+      {{'report.failed' | translate}}
       <ion-note item-end>
         {{context.failedRequests}}
       </ion-note>
     </ion-item>
   </ion-list>
 
-
-  <button ion-button full color="secondary" (click)="showDataList('month')">Monatsübersicht</button>
-  <button ion-button full color="secondary" (click)="showDataList('day')">Tagesübersicht</button>
+  <h2>{{'report.dataList' | translate}}</h2>
+  <button ion-button full color="secondary" (click)="showDataList('month')">{{'report.dataListMonthly' | translate}}</button>
+  <button ion-button full color="secondary" (click)="showDataList('day')">{{'report.dataListDaily' | translate}}</button>
 </ion-content>
