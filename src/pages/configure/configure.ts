@@ -14,6 +14,7 @@ import { File } from '@ionic-native/file';
 import { SettingsPage } from '../settings/settings';
 import { ReportPage } from '../report/report';
 import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
 
 @Component({
   selector: 'page-configure',
@@ -39,6 +40,13 @@ export class ConfigurePage {
 
   async ionViewDidLoad() {
     this.name = this.navParams.data.name;
+
+    if (this.platform.is('cordova')) {
+      let dateString = moment()
+        .utc()
+        .format('YYYY-MM-d-DD-HH-mm-ss'.replace(/-/g, ''));
+      await this.bridge.executeCommand('setdate', dateString);
+    }
 
     this.interval = setInterval(async () => {
       if (this.platform.is('cordova')) {
@@ -115,13 +123,14 @@ export class ConfigurePage {
 
   async loadGeneralData() {
     if (!this.platform.is('cordova')) {
+      let count = 25321;
       this.navCtrl.push(ReportPage, {
         aborted: false,
-        loadedRows: 1000,
-        availableRows: 1000,
-        rows: this.bridge.generateGeneralData(1000),
-        failedRequests: 1,
-        totalRequests: 9,
+        loadedRows: count,
+        availableRows: count,
+        rows: await this.bridge.generateGeneralData(count),
+        failedRequests: 2,
+        totalRequests: 25,
         duration: 65321
       });
       return;

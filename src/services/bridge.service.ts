@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as _ from 'lodash';
-import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
-import { GeneralDataEntry } from './model';
+import {BluetoothSerial} from '@ionic-native/bluetooth-serial';
+import {GeneralDataEntry} from './model';
 import moment from 'moment';
 import Chance from 'chance';
 
@@ -15,7 +15,8 @@ const chance = new Chance();
 
 @Injectable()
 export class BridgeService {
-  constructor(private bluetooth: BluetoothSerial) {}
+  constructor(private bluetooth: BluetoothSerial) {
+  }
 
   parseConfig(s) {
     let regex = /([^\[\];]+)=([^\[\];]+)/gm;
@@ -177,14 +178,22 @@ export class BridgeService {
     };
   }
 
-  generateGeneralData(amount: number) {
+  async generateGeneralData(amount: number) {
     let items = [];
     let date = moment();
-    _.times(amount, index => {
+    for (let i = 0; i < amount; i++) {
       date.subtract(10, 'minutes');
-      let string = `${amount - index - 1};${date.format("YYYYMMDDHHmm")};${chance.integer({max: 35, min: -20})};${chance.integer({min: 990, max: 1020})};${chance.integer({min: 115, max: 130})};${chance.integer({min: 10, max: 50})}`;
+      let string = `${amount - i - 1};${date.format(
+        'YYYYMMDDHHmm'
+      )};${chance.integer({max: 35, min: -20})};${chance.integer({
+        min: 990,
+        max: 1020
+      })};${chance.integer({min: 115, max: 130})};${chance.integer({
+        min: 10,
+        max: 50
+      })}`;
       items.push(`${string}@${this.calculateChecksum(string)}`);
-    });
+    }
     items.reverse();
     return items;
   }
