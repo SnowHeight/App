@@ -45,6 +45,7 @@
     "duration": "Duration",
     "entryCount": "Entries",
     "failed": "Failed",
+    "failedExplanation": "Failed transmission were automatically repeated. This means that even if the graphic below shows many failed transmission, the data was still transferred successfully.",
     "newestEntry": "Newest entry",
     "oldestEntry": "Oldest entry",
     "seconds": "seconds",

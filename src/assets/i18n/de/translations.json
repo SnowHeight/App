@@ -45,7 +45,7 @@
     "duration": "Dauer",
     "entryCount": "Datensätze",
     "failed": "Fehlgeschlagen",
-    "failedExplanation": "Fehlgeschlagene Teilübertragungen werden automatisch wiederholt. Das bedeutet, dass selbst wenn viele fehlgeschlagene Teilübertragungen vorhanden sind, alle Daten korrekt übertragen werden.",
+    "failedExplanation": "Fehlgeschlagene Teilübertragungen wurden automatisch wiederholt. Das bedeutet, dass selbst wenn viele fehlgeschlagene Teilübertragungen vorhanden sind, alle Daten korrekt übertragen werden.",
     "newestEntry": "Neuester Eintrag",
     "oldestEntry": "Ältester Eintrag",
     "seconds": "Sekunden",

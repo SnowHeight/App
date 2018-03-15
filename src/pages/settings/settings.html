@@ -7,8 +7,8 @@
 
 <ion-content padding>
   <h3>{{'settings.settings' | translate}}</h3>
-  <ion-list *ngFor="let key of _.keys(config)">
-    <ion-item>
+  <ion-list>
+    <ion-item *ngFor="let key of _.keys(config)">
       <ion-label color="primary">{{key}}</ion-label>
       <ion-input placeholder="{{key}}" [(ngModel)]="config[key]"></ion-input>
     </ion-item>
