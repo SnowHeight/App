@@ -13,7 +13,9 @@ import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 
 enum SettingType {
-  STRING, NUMBER, BOOLEAN
+  STRING,
+  NUMBER,
+  BOOLEAN
 }
 
 interface Setting {
@@ -44,61 +46,61 @@ export class SettingsPage {
   ) {
     this.settings = [
       {
-        name: "ModuleName",
+        name: 'ModuleName',
         type: SettingType.STRING,
         defaultValue: 'SnowHeight - ChangeMe'
       },
       {
-        name: "BluetoothPin",
+        name: 'BluetoothPin',
         type: SettingType.NUMBER,
         defaultValue: 1234
       },
       {
-        name: "Version",
+        name: 'Version',
         type: SettingType.STRING,
         defaultValue: '1.0'
       },
       {
-        name: "SerialNr",
+        name: 'SerialNr',
         type: SettingType.STRING,
         defaultValue: '123456'
       },
       {
-        name: "Height",
+        name: 'Height',
         type: SettingType.NUMBER,
         defaultValue: 150
       },
       {
-        name: "UltraSonicDelay",
+        name: 'UltraSonicDelay',
         type: SettingType.NUMBER,
         defaultValue: 10
       },
       {
-        name: "LaserDelay",
+        name: 'LaserDelay',
         type: SettingType.NUMBER,
         defaultValue: 60
       },
       {
-        name: "ServoDrivingTime",
+        name: 'ServoDrivingTime',
         type: SettingType.NUMBER,
         defaultValue: 200
       },
       {
-        name: "Watchdog",
+        name: 'Watchdog',
         type: SettingType.BOOLEAN,
-        defaultValue: "true"
+        defaultValue: 'true'
       },
       {
-        name: "PowerSaveVoltage",
+        name: 'PowerSaveVoltage',
         type: SettingType.NUMBER,
         defaultValue: 6
       },
       {
-        name: "CountLasermeasurements",
+        name: 'CountLasermeasurements',
         type: SettingType.NUMBER,
         defaultValue: 10
       }
-    ]
+    ];
   }
 
   async ionViewDidLoad() {
@@ -137,7 +139,8 @@ export class SettingsPage {
   }
 
   async loadFakeConfig() {
-    let settings = `[settings]ModuleName=${this.name};` +
+    let settings =
+      `[settings]ModuleName=${this.name};` +
       'BluetoothPin=1234;' +
       'Version=1;' +
       'SerialNr=10;' +

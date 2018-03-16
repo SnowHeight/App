@@ -52,7 +52,7 @@ export class ConfigurePage {
         await this.bridge.executeCommand('setdate', dateString);
         this.synchronizeSuccess = true;
         this.synchronizingTime = false;
-      } catch(e) {
+      } catch (e) {
         this.synchronizeSuccess = false;
         this.synchronizingTime = false;
       }
