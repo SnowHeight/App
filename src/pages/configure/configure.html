@@ -17,16 +17,38 @@
         {{'configure.connected' | translate}}
       </ion-note>
     </ion-item>
+
     <ion-item>
       {{'configure.time' | translate}}
       <ion-note item-end *ngIf="synchronizingTime">
-        {{'configure.synchronizing' | translate}} <ion-spinner name="crescent"></ion-spinner>
+        {{'configure.synchronizing' | translate}}
+        <ion-spinner name="crescent"></ion-spinner>
       </ion-note>
       <ion-note item-end class="text-success" *ngIf="!synchronizingTime && synchronizeSuccess">
         {{'configure.synchronized' | translate}}
       </ion-note>
       <ion-note item-end class="text-error" *ngIf="!synchronizingTime && !synchronizeSuccess">
         {{'configure.synchronizeError' | translate}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      {{'configure.version' | translate}}
+      <ion-note item-end *ngIf="!version">
+        <ion-spinner name="crescent"></ion-spinner>
+      </ion-note>
+      <ion-note item-end *ngIf="version">
+        {{version}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      {{'configure.serial' | translate}}
+      <ion-note item-end *ngIf="!serial">
+        <ion-spinner name="crescent"></ion-spinner>
+      </ion-note>
+      <ion-note item-end *ngIf="serial">
+        {{serial}}
       </ion-note>
     </ion-item>
   </ion-list>

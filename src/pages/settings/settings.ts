@@ -56,16 +56,6 @@ export class SettingsPage {
         defaultValue: 1234
       },
       {
-        name: 'Version',
-        type: SettingType.STRING,
-        defaultValue: '1.0'
-      },
-      {
-        name: 'SerialNr',
-        type: SettingType.STRING,
-        defaultValue: '123456'
-      },
-      {
         name: 'Height',
         type: SettingType.NUMBER,
         defaultValue: 150
@@ -113,6 +103,15 @@ export class SettingsPage {
     }
   }
 
+  enrichConfig() {
+    _.each(this.settings, (setting: Setting) => {
+      if (!this.config.hasOwnProperty(setting.name)) {
+        console.log('enriched config with ' + setting.name);
+        this.config[setting.name] = setting.defaultValue;
+      }
+    });
+  }
+
   async loadConfig() {
     let loading = this.loadingCtrl.create({
       content: await this.translate.get('settings.loading').toPromise()
@@ -125,6 +124,7 @@ export class SettingsPage {
         null
       );
       this.config = this.bridge.parseConfig(settings);
+      this.enrichConfig();
       await loading.dismiss();
     } catch (e) {
       await loading.dismiss();
@@ -153,6 +153,7 @@ export class SettingsPage {
       'CountLasermeasurements=50' +
       '[/settings]';
     this.config = this.bridge.parseConfig(settings);
+    this.enrichConfig();
   }
 
   async saveConfig() {

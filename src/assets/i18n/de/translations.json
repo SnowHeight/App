@@ -9,13 +9,15 @@
     "loadLaserData": "Laserdaten laden",
     "lostConnection": "Die Verbindung wurde unterbrochen",
     "saveSettings": "Einstellungen speichern",
+    "serial": "Seriennr.",
     "settings": "Einstellungen",
     "status": "Status",
     "synchronizeError": "Fehlgeschlagen",
     "synchronized": "Synchronisiert",
     "synchronizing": "Synchronisiere...",
     "time": "Zeit",
-    "title": "SnowHeight"
+    "title": "SnowHeight",
+    "version": "Version"
   },
   "connect": {
     "connect": "Gerät verbinden",

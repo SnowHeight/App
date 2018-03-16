@@ -38,6 +38,9 @@ export class ConfigurePage {
   interval: number = null;
   config: any = null;
 
+  version: string = null;
+  serial: string = null;
+
   synchronizeSuccess: boolean = false;
   synchronizingTime: boolean = true;
 
@@ -45,6 +48,7 @@ export class ConfigurePage {
     this.name = this.navParams.data.name;
 
     if (this.platform.is('cordova')) {
+      this.loadInfo();
       let dateString = moment()
         .utc()
         .format('YYYY-MM-d-DD-HH-mm-ss'.replace(/-/g, ''));
@@ -62,6 +66,10 @@ export class ConfigurePage {
         this.synchronizeSuccess = true;
         this.synchronizingTime = false;
       }, 1500);
+      setTimeout(() => {
+        this.version = '1.0.2';
+        this.serial = 'af2f29fd';
+      }, 800);
     }
 
     this.interval = setInterval(async () => {
@@ -99,6 +107,22 @@ export class ConfigurePage {
         }
       }
     }, 2000);
+  }
+
+  async loadInfo() {
+    try {
+      let infoRaw = await this.bridge.executeCommandWithReturnValue(
+        'info',
+        null
+      );
+      let info = this.bridge.parseConfig(infoRaw);
+      this.version = info['version'];
+      this.serial = info['serial'];
+    } catch (e) {
+      console.log('failed to load info', e);
+      this.version = 'ERR';
+      this.serial = 'ERR';
+    }
   }
 
   openSettings() {

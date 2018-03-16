@@ -9,13 +9,15 @@
     "loadLaserData": "Load laser data",
     "lostConnection": "The connection was lost",
     "saveSettings": "Save settings",
+    "serial": "Serial number",
     "settings": "Settings",
     "status": "Status",
     "synchronizeError": "Failed",
     "synchronized": "Synchronized",
     "synchronizing": "Synchronizing...",
     "time": "Time",
-    "title": "SnowHeight"
+    "title": "SnowHeight",
+    "version": "Version"
   },
   "connect": {
     "connect": "Connect device",
