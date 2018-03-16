@@ -45,7 +45,7 @@
     "duration": "Duration",
     "entryCount": "Entries",
     "failed": "Failed",
-    "failedExplanation": "Failed transmission were automatically repeated. This means that even if the graphic below shows many failed transmission, the data was still transferred successfully.",
+    "failedExplanation": "Failed transmission were automatically repeated. This means that even if the graphic above shows many failed transmission, the data was still transferred successfully.",
     "newestEntry": "Newest entry",
     "oldestEntry": "Oldest entry",
     "seconds": "seconds",
@@ -60,6 +60,9 @@
     "saveSettings": "Save",
     "saveSuccess": "The settings were saved sucessfully",
     "saving": "Saving settings...",
+    "settingDescriptionBluetoothCode": "This is the PIN which is required to pair with the weather probe.",
+    "settingDescriptionBluetoothName": "This is the name as which the weather probe will appear to nearby bluetooth devices.",
+    "settingDescriptionLaserInterval": "This is the interval in which the laser will perform its measurements. The unit of this setting is „minutes“.",
     "settings": "Settings",
     "title": "Settings"
   }

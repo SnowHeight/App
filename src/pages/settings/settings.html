@@ -5,13 +5,26 @@
 </ion-header>
 
 
-<ion-content padding>
-  <h3>{{'settings.settings' | translate}}</h3>
-  <ion-list>
-    <ion-item *ngFor="let key of _.keys(config)">
-      <ion-label color="primary">{{key}}</ion-label>
-      <ion-input placeholder="{{key}}" [(ngModel)]="config[key]"></ion-input>
-    </ion-item>
-  </ion-list>
-  <button ion-button full color="secondary" (click)="saveConfig()">{{'settings.saveSettings' | translate}}</button>
+<ion-content *ngIf="config && settings">
+  <h3 padding>{{'settings.settings' | translate}}</h3>
+  <ion-card *ngFor="let setting of settings">
+
+    <ion-card-header>
+      {{setting.name}}
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>{{'settings.settingDescription' + setting.name | translate}}</p>
+      <ion-item>
+        <ion-label floating>{{setting.name}}</ion-label>
+        <ion-input *ngIf="setting.type == SettingType.NUMBER" type="number" placeholder="{{setting.name}}"
+                   [(ngModel)]="config[setting.name]"></ion-input>
+        <ion-input *ngIf="setting.type == SettingType.STRING" type="text" placeholder="{{setting.name}}"
+                   [(ngModel)]="config[setting.name]"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <div padding>
+    <button ion-button full color="secondary" (click)="saveConfig()">{{'settings.saveSettings' | translate}}</button>
+  </div>
 </ion-content>

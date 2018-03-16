@@ -12,6 +12,16 @@ import { ConnectPage } from '../connect/connect';
 import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 
+enum SettingType {
+  STRING, NUMBER, BOOLEAN
+}
+
+interface Setting {
+  name: string;
+  type: SettingType;
+  defaultValue?: any;
+}
+
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html'
@@ -20,6 +30,8 @@ export class SettingsPage {
   name: string = null;
   _: any = _;
   config: any = null;
+  settings: Setting[];
+  SettingType = SettingType;
 
   constructor(
     public navCtrl: NavController,
@@ -29,7 +41,65 @@ export class SettingsPage {
     public loadingCtrl: LoadingController,
     public platform: Platform,
     public translate: TranslateService
-  ) {}
+  ) {
+    this.settings = [
+      {
+        name: "ModuleName",
+        type: SettingType.STRING,
+        defaultValue: 'SnowHeight - ChangeMe'
+      },
+      {
+        name: "BluetoothPin",
+        type: SettingType.NUMBER,
+        defaultValue: 1234
+      },
+      {
+        name: "Version",
+        type: SettingType.STRING,
+        defaultValue: '1.0'
+      },
+      {
+        name: "SerialNr",
+        type: SettingType.STRING,
+        defaultValue: '123456'
+      },
+      {
+        name: "Height",
+        type: SettingType.NUMBER,
+        defaultValue: 150
+      },
+      {
+        name: "UltraSonicDelay",
+        type: SettingType.NUMBER,
+        defaultValue: 10
+      },
+      {
+        name: "LaserDelay",
+        type: SettingType.NUMBER,
+        defaultValue: 60
+      },
+      {
+        name: "ServoDrivingTime",
+        type: SettingType.NUMBER,
+        defaultValue: 200
+      },
+      {
+        name: "Watchdog",
+        type: SettingType.BOOLEAN,
+        defaultValue: "true"
+      },
+      {
+        name: "PowerSaveVoltage",
+        type: SettingType.NUMBER,
+        defaultValue: 6
+      },
+      {
+        name: "CountLasermeasurements",
+        type: SettingType.NUMBER,
+        defaultValue: 10
+      }
+    ]
+  }
 
   async ionViewDidLoad() {
     this.name = this.navParams.get('name');
@@ -67,11 +137,19 @@ export class SettingsPage {
   }
 
   async loadFakeConfig() {
-    this.config = this.bridge.parseConfig(
-      `[settings]BluetoothName=${
-        this.name
-      };BluetoothCode=1234;UltraSonicInterval=1;LaserInterval=10;Height=150;ServoDrivingTime=100;PowerSaveVoltage=12[/settings]`
-    );
+    let settings = `[settings]ModuleName=${this.name};` +
+      'BluetoothPin=1234;' +
+      'Version=1;' +
+      'SerialNr=10;' +
+      'Height=150;' +
+      'UltraSonicDelay=100;' +
+      'LaserDelay=12;' +
+      'ServoDrivingTime=12;' +
+      'Watchdog=true;' +
+      'PowerSaveVoltage=12;' +
+      'CountLasermeasurements=50' +
+      '[/settings]';
+    this.config = this.bridge.parseConfig(settings);
   }
 
   async saveConfig() {

@@ -48,7 +48,14 @@ export class ConfigurePage {
       let dateString = moment()
         .utc()
         .format('YYYY-MM-d-DD-HH-mm-ss'.replace(/-/g, ''));
-      await this.bridge.executeCommand('setdate', dateString);
+      try {
+        await this.bridge.executeCommand('setdate', dateString);
+        this.synchronizeSuccess = true;
+        this.synchronizingTime = false;
+      } catch(e) {
+        this.synchronizeSuccess = false;
+        this.synchronizingTime = false;
+      }
     } else {
       this.synchronizingTime = true;
       setTimeout(() => {

@@ -60,6 +60,7 @@
     "saveSettings": "Speichern",
     "saveSuccess": "Die Einstellungen wurden erfolgreich gespeichert",
     "saving": "Einstellungen werden gespeichert...",
+    "settingDescriptionBluetoothName": "Dies ist der Name der Wettersonde, welcher anderen Bluetooth Geräten angezeigt wird.",
     "settings": "Einstellungen",
     "title": "Einstellungen"
   }

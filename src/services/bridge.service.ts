@@ -6,9 +6,11 @@ import moment from 'moment';
 import Chance from 'chance';
 
 export enum Commands {
+  SETTINGS = 'settings',
   SAVE_SETTINGS = 'savesettings',
   GDATA_NEXT = 'gdata:next',
-  GDATA = 'gdata'
+  GDATA = 'gdata',
+  SET_DATE = 'setdate'
 }
 
 const chance = new Chance();
