@@ -16,11 +16,13 @@
     <ion-card-content>
       <p>{{'settings.settingDescription' + setting.name | translate}}</p>
       <ion-item>
-        <ion-label floating>{{setting.name}}</ion-label>
+        <ion-label floating *ngIf="setting.type !== SettingType.BOOLEAN">{{setting.name}}</ion-label>
         <ion-input *ngIf="setting.type == SettingType.NUMBER" type="number" placeholder="{{setting.name}}"
                    [(ngModel)]="config[setting.name]"></ion-input>
         <ion-input *ngIf="setting.type == SettingType.STRING" type="text" placeholder="{{setting.name}}"
                    [(ngModel)]="config[setting.name]"></ion-input>
+        <ion-checkbox *ngIf="setting.type == SettingType.BOOLEAN"
+                   [(ngModel)]="config[setting.name]"></ion-checkbox>
       </ion-item>
     </ion-card-content>
   </ion-card>

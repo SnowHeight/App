@@ -27,6 +27,18 @@ export class ConnectPage {
 
   devices: any[] = [];
 
+  counter: number = 0;
+
+  enableDebugMode() {
+    this.counter++;
+    console.log(this.counter);
+    if(this.counter >= 5) {
+      document.getElementById('log').style.display = 'block';
+      let appElement: any = document.getElementsByTagName('ion-app')[0];
+      appElement.style.height = '60%';
+    }
+  }
+
   async connect(device) {
     let loading = this.loadingCtrl.create({
       content: await this.translate.get('connect.connecting').toPromise()

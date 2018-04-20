@@ -62,8 +62,8 @@
     "saveSettings": "Save",
     "saveSuccess": "The settings were saved sucessfully",
     "saving": "Saving settings...",
-    "settingDescriptionBluetoothCode": "This is the PIN which is required to pair with the weather probe.",
-    "settingDescriptionBluetoothName": "This is the name as which the weather probe will appear to nearby bluetooth devices.",
+    "settingDescriptionBluetoothName": "The Name as which the weather probe will appear to nearby bluetooth devices.",
+    "settingDescriptionBluetoothPin": "The pin code which is required to pair with the weather probe.",
     "settingDescriptionLaserInterval": "This is the interval in which the laser will perform its measurements. The unit of this setting is „minutes“.",
     "settings": "Settings",
     "title": "Settings"

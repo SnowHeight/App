@@ -62,7 +62,10 @@
     "saveSettings": "Speichern",
     "saveSuccess": "Die Einstellungen wurden erfolgreich gespeichert",
     "saving": "Einstellungen werden gespeichert...",
-    "settingDescriptionBluetoothName": "Dies ist der Name der Wettersonde, welcher anderen Bluetooth Geräten angezeigt wird.",
+    "settingDescriptionBluetoothName": "Der Name der Wettersonde, welcher anderen Bluetooth Geräten angezeigt wird.",
+    "settingDescriptionBluetoothPin": "Der Pin, welcher bei der Paarung mit der Sonde über Bluetooth benötigt wird.",
+    "settingDescriptionHeight": "Der Abstand vom Unterboden der Sonde zum Boden.",
+    "settingDescriptionUltraSonicDelay": "Der Abstand zwischen zwei Ultraschallmessungen in Minuten.",
     "settings": "Einstellungen",
     "title": "Einstellungen"
   }

@@ -11,6 +11,7 @@ import { BridgeService } from '../../services/bridge.service';
 import { ConnectPage } from '../connect/connect';
 import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
+import { ConfigurePage } from '../configure/configure';
 
 enum SettingType {
   STRING,
@@ -46,7 +47,7 @@ export class SettingsPage {
   ) {
     this.settings = [
       {
-        name: 'ModuleName',
+        name: 'BluetoothName',
         type: SettingType.STRING,
         defaultValue: 'SnowHeight - ChangeMe'
       },
@@ -86,7 +87,7 @@ export class SettingsPage {
         defaultValue: 6
       },
       {
-        name: 'CountLasermeasurements',
+        name: 'CountLaserMeasurements',
         type: SettingType.NUMBER,
         defaultValue: 10
       }
@@ -108,6 +109,16 @@ export class SettingsPage {
       if (!this.config.hasOwnProperty(setting.name)) {
         console.log('enriched config with ' + setting.name);
         this.config[setting.name] = setting.defaultValue;
+      }
+    });
+    _.each(this.config, (value, key) => {
+      let setting: Setting = _.find(this.settings, setting => setting.name === key);
+      if(setting) {
+        if(setting.type === SettingType.BOOLEAN) {
+          this.config[key] = value === 'true';
+        }
+      } else {
+        console.warn('no setting found for ' + key);
       }
     });
   }
@@ -134,23 +145,21 @@ export class SettingsPage {
           buttons: [await this.translate.get('generic.confirm').toPromise()]
         })
         .present();
-      this.navCtrl.setRoot(ConnectPage);
+      this.navCtrl.pop();
     }
   }
 
   async loadFakeConfig() {
     let settings =
-      `[settings]ModuleName=${this.name};` +
+      `[settings]BluetoothName=${this.name};` +
       'BluetoothPin=1234;' +
-      'Version=1;' +
-      'SerialNr=10;' +
       'Height=150;' +
       'UltraSonicDelay=100;' +
       'LaserDelay=12;' +
       'ServoDrivingTime=12;' +
       'Watchdog=true;' +
       'PowerSaveVoltage=12;' +
-      'CountLasermeasurements=50' +
+      'CountLaserMeasurements=50' +
       '[/settings]';
     this.config = this.bridge.parseConfig(settings);
     this.enrichConfig();
@@ -160,6 +169,9 @@ export class SettingsPage {
     try {
       let configString = this.bridge.configObjectToString(this.config);
       console.log(configString);
+      if(!this.platform.is('cordova'))  {
+        return;
+      }
       await this.bridge.executeCommand('savesettings', configString);
       await this.alertCtrl
         .create({
@@ -168,6 +180,7 @@ export class SettingsPage {
         })
         .present();
     } catch (e) {
+      console.error('oh no', e);
       await this.alertCtrl
         .create({
           title: await this.translate.get('settings.saveError').toPromise(),

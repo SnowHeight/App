@@ -6,6 +6,7 @@ import { ConnectPage } from '../pages/connect/connect';
 import { TranslateService } from '@ngx-translate/core';
 import { File } from '@ionic-native/file';
 import { Nav, Platform } from 'ionic-angular';
+import {BluetoothSerial} from "@ionic-native/bluetooth-serial";
 
 @Component({
   templateUrl: 'app.html'
@@ -22,7 +23,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public translate: TranslateService,
-    public file: File
+    public file: File,
+    public bluetooth: BluetoothSerial
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translate.setDefaultLang('en');
@@ -30,6 +32,18 @@ export class MyApp {
     this.translate.use(translate.getBrowserLang() || 'en');
 
     this.initializeApp();
+
+    if(this.platform.is('cordova')) {
+      this.bluetooth.subscribeRawData().subscribe(data => {
+        let arr = new Uint8Array(data);
+        let s = '';
+        for (let i = 0; i < arr.length; i++) {
+          s += String.fromCharCode(arr[i]);
+        }
+        console.log('raw', s);
+        document.getElementById('log').innerText += s;
+      });
+    }
   }
 
   initializeApp() {

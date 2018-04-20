@@ -10,7 +10,7 @@
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "prettier": "npx prettier --single-quote --trailing-comma none --write \"src/**/*.ts\""
+    "prettier": "prettier --single-quote --trailing-comma none --write \"src/**/*.ts\""
   },
   "dependencies": {
     "@angular/animations": "^5.2.9",

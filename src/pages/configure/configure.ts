@@ -76,6 +76,7 @@ export class ConfigurePage {
       if (this.platform.is('cordova')) {
         try {
           if (!await this.bluetooth.isConnected()) {
+            clearInterval(this.interval);
             console.log('no longer connected');
             this.loadingCtrl.create().dismissAll();
             await this.alertCtrl
@@ -94,6 +95,7 @@ export class ConfigurePage {
           }
         } catch (e) {
           console.error('failed to check if we are still connected', e);
+          clearInterval(this.interval);
           this.loadingCtrl.create().dismissAll();
           await this.alertCtrl
             .create({

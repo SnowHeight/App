@@ -32,6 +32,9 @@ export class BridgeService {
   configObjectToString(obj) {
     let data = null;
     _.each(obj, (value, key) => {
+      if(typeof value === 'boolean') {
+        value = value.toString();
+      }
       if (data === null) {
         data = `${key}=${value}`;
       } else {
@@ -93,9 +96,9 @@ export class BridgeService {
       let finished = false;
       let command;
       if (data) {
-        command = `[${_command}]${data}[/${_command}]`;
+        command = `[${_command}]${data}[/${_command}]\n`;
       } else {
-        command = `[${_command}]`;
+        command = `[${_command}]\n`;
       }
       console.log('executing', command);
 
@@ -129,9 +132,9 @@ export class BridgeService {
       let finished = false;
       let command: string;
       if (data) {
-        command = `[${_command}]${data}[/${_command}]`;
+        command = `[${_command}]${data}[/${_command}]\n`;
       } else {
-        command = `[${_command}]`;
+        command = `[${_command}]\n`;
       }
       console.log('executing', command);
 
