@@ -53,7 +53,10 @@
     "seconds": "seconds",
     "stability": "Stability",
     "status": "Status",
-    "title": "Transmission report"
+    "title": "Transmission report",
+    "tempChart": "Temperature",
+    "humidityChart": "Humidity",
+    "pressureChart": "Air pressure"
   },
   "settings": {
     "loadError": "An error occured while loading the settings from the device",

@@ -48,6 +48,48 @@
     </ion-item>
   </ion-list>
 
+  <ion-slides pager="true">
+    <ion-slide>
+      <h2>{{'report.tempChart' | translate}}</h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ngx-charts-line-chart 
+            [scheme]="tempChart.scheme" 
+            [results]="tempChart.data">
+            </ngx-charts-line-chart>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <h2>{{'report.humidityChart' | translate}}</h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ngx-charts-line-chart 
+            [scheme]="humidityChart.scheme" 
+            [results]="humidityChart.data">
+            </ngx-charts-line-chart>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <h2>{{'report.pressureChart' | translate}}</h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ngx-charts-line-chart 
+            [scheme]="pressureChart.scheme" 
+            [results]="pressureChart.data">
+            </ngx-charts-line-chart>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
+
   <h2>{{'report.stability' | translate}}</h2>
   <ion-grid>
     <ion-row>

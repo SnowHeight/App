@@ -53,7 +53,10 @@
     "seconds": "Sekunden",
     "stability": "Stabilität",
     "status": "Status",
-    "title": "Übertragungsbericht"
+    "title": "Übertragungsbericht",
+    "tempChart": "Temperatur",
+    "humidityChart": "Luftfeuchtigkeit",
+    "pressureChart": "Luftdruck"
   },
   "settings": {
     "loadError": "Beim Laden der Einstellungen ist ein Fehler aufgetreten",
